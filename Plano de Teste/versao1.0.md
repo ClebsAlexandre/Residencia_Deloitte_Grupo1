@@ -1,7 +1,7 @@
 # Plano de Testes – ParaBank
 Integrantes da equipe
 - Clebson Alexandre
-- Nicolas Klyvert
+- Nicolas Klayvert
 - Sérgio Roberto
 - Leonardo Antônio
 - Luan Guilherme
