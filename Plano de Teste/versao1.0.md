@@ -84,7 +84,6 @@ ParaBank
 ---
 
 ## Estratégia de Testes
-Descreva, de forma resumida:
 - 
 
 ---
