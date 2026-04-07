@@ -102,9 +102,6 @@ ParaBank
 
 
 ### Organização em Sprints
-
-
-Considere informar:
 - 
 
 ### Cronograma
