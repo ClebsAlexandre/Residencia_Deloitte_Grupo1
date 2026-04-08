@@ -31,17 +31,19 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 
 ## Critérios de Aceite
 
-### Accounts Overview
+### 1. Accounts Overview (Visão Geral da Conta)
 
 **Front-end**
-- 
-- 
-- 
+* O sistema deve exibir todas as contas associadas ao utilizador autenticado.
+* Cada conta deve ser identificada de forma única na listagem do ecrã.
+* A interface deve apresentar de forma clara o saldo e o valor disponível para cada conta.
+* O utilizador deve conseguir aceder aos detalhes de uma conta selecionada sem perder o contexto de navegação do sistema.
 
 **API / Back-end**
-- 
-- 
-- 
+* A API deve retornar dados de contas de forma totalmente isolada por cliente, garantindo que não há mistura de informações.
+* A consulta no back-end deve exigir um identificador de cliente válido.
+* O sistema deve retornar respostas consistentes e previsíveis (como uma lista vazia ou código adequado) caso o cliente não possua contas associadas.
+* É estritamente proibido expor dados de contas que não pertençam ao cliente informado na requisição.
 
 ---
 
