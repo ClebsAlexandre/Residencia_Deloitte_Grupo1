@@ -47,17 +47,21 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 
 ---
 
-### Open New Account
+### Open New Account (Abrir Conta)
 
 **Front-end**
-- 
-- 
-- 
+* A interface deve exigir a definição do tipo de conta antes de permitir o avanço no fluxo.
+* O sistema deve exigir a seleção de uma conta de origem para a realização do depósito inicial.
+* Após a tentativa de abertura de conta, o sistema deve comunicar ao utilizador se a operação foi concluída com sucesso ou se ocorreu falha.
+* O utilizador não deve conseguir prosseguir caso as informações mínimas necessárias não estejam preenchidas.
+* A interface deve apresentar mensagens claras indicando quais informações obrigatórias estão em falta.
 
 **API / Back-end**
-- 
-- 
-- 
+* A API deve permitir criar uma nova conta vinculada a um cliente existente.
+* O back-end deve exigir cliente, tipo de conta e conta de origem válidos para processar a criação.
+* O sistema não deve criar contas quando as informações obrigatórias estiverem ausentes ou inválidas.
+* Em caso de sucesso, o back-end deve garantir que a nova conta passe a fazer parte do conjunto de contas do cliente.
+* Em caso de erro, a API não deve gerar efeitos colaterais parciais sobre as contas já existentes.
 
 ---
 
