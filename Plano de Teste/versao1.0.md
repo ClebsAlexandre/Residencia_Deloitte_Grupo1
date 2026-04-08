@@ -31,13 +31,13 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 
 ## Critérios de Aceite
 
-### Accounts Overview (Visão Geral da Conta)
+### 1. Accounts Overview (Visão Geral da Conta)
 
 **Front-end**
-* O sistema deve exibir todas as contas associadas ao usuário autenticado.
-* Cada conta deve ser identificada de forma única na listagem da tela.
+* O sistema deve exibir todas as contas associadas ao utilizador autenticado.
+* Cada conta deve ser identificada de forma única na listagem do ecrã.
 * A interface deve apresentar de forma clara o saldo e o valor disponível para cada conta.
-* O usuário deve conseguir acessar os detalhes de uma conta selecionada sem perder o contexto de navegação do sistema.
+* O utilizador deve conseguir aceder aos detalhes de uma conta selecionada sem perder o contexto de navegação do sistema.
 
 **API / Back-end**
 * A API deve retornar dados de contas de forma totalmente isolada por cliente, garantindo que não há mistura de informações.
@@ -50,6 +50,22 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 ### Open New Account
 
 **Front-end**
+- A interface deve exigir a definição do tipo de conta antes de permitir o avanço no fluxo.
+- O sistema deve exigir a seleção de uma conta de origem para a realização do depósito inicial.
+- Após a tentativa de abertura de conta, o sistema deve comunicar ao utilizador se a operação foi concluída com sucesso ou   se ocorreu falha.
+- O utilizador não deve conseguir prosseguir caso as informações mínimas necessárias não estejam preenchidas.
+- A interface deve apresentar mensagens claras indicando quais informações obrigatórias estão em falta.
+
+**API / Back-end**
+- 
+- 
+- 
+
+---
+
+### Transfer Funds
+
+**Front-end**
 - 
 - 
 - 
@@ -61,96 +77,63 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 
 ---
 
-### Transfer Funds (Transferir Fundos)
+### Request Loan
 
 **Front-end**
-* O sistema deve permitir a transferência de valores exclusivamente entre contas que pertençam ao usuário autenticado.
-* A interface deve exigir obrigatoriamente o preenchimento do valor, da conta de origem e da conta de destino para realizar a operação.
-* O formulário não deve permitir a submissão ou execução da transferência caso faltem informações essenciais.
-* A aplicação deve comunicar de forma clara ao usuário o resultado (sucesso ou falha) da tentativa de transferência.
-* A tela deve manter o contexto de navegação contínuo após a finalização da operação.
+- 
+- 
+- 
 
 **API / Back-end**
-* A API deve permitir o registro de uma transação de transferência apenas quando as contas informadas forem válidas.
-* O back-end deve validar do lado do servidor se as contas envolvidas (origem e destino) pertencem efetivamente ao mesmo cliente.
-* O registro da transferência no banco de dados deve ser processado de forma atômica, evitando a criação de estados intermediários inconsistentes.
-* Em caso de erro durante o processo, o sistema não deve efetuar qualquer alteração nos saldos nem gerar transações parciais (garantia de rollback).
-* O back-end deve retornar uma resposta estruturada e coerente com o resultado real da operação de transferência.
-
----
-
-### Request Loan (Solicitar Empréstimo)
-
-**Front-end**
-* O sistema deve permitir ao usuário solicitar um empréstimo associado à sua conta.
-* A interface deve exigir o preenchimento obrigatório do valor do empréstimo, do valor de entrada (down payment) e da seleção da conta de origem.
-* O formulário não deve habilitar a submissão da solicitação caso as informações necessárias não estejam preenchidas.
-* A aplicação deve apresentar ao usuário o resultado da solicitação dentro do próprio fluxo da tela.
-* A interface deve garantir e manter o uso contínuo do sistema após a finalização da solicitação.
-
-**API / Back-end**
-* A API deve permitir registrar solicitações de empréstimo exclusivamente para clientes existentes.
-* O back-end deve validar do lado do servidor se o cliente, os valores informados e a conta de origem são estritamente válidos.
-* O serviço deve retornar de forma clara e estruturada o resultado da solicitação, indicando se foi processada ou não.
-* Em caso de aprovação e sucesso, o sistema deve gerar um empréstimo devidamente vinculado ao cliente e à conta.
-* Em caso de erro na validação ou processamento, o back-end não deve provocar quaisquer alterações parciais em dados financeiros.
+- 
+- 
+- 
 
 ---
 
 ## Funcionalidades Fora de Escopo
 
-Para esta fase de validação, os testes estarão limitados estritamente às quatro funcionalidades descritas acima. Sendo assim, não farão parte do escopo de testes as seguintes funcionalidades do sistema ParaBank:
-
-* **Bill Pay (Pagamento de Contas):** O fluxo de pagamento de faturas ou envio de valores para terceiros não será testado.
-* **Find Transactions (Buscar Transações):** A pesquisa detalhada de histórico de transações por data, valor ou identificador da transação não entrará nesta fase.
-* **Update Contact Info (Atualização de Cadastro):** A funcionalidade de alteração de dados pessoais do utilizador (morada, telefone, etc.) está fora do escopo.
-* **Register (Registo de Novo Utilizador):** A criação de novos perfis de acesso ao sistema do banco não será alvo de validação.
-* **Admin Page (Painel de Administração):** As configurações internas do sistema, limpeza da base de dados e controlo de parâmetros de serviços SOAP/REST não serão testados.
-
 ---
 
 ## Estratégia de Testes
+- ### Open New Account
 
-**Objetivo dos Testes:**
-O objetivo principal é validar se as funcionalidades de gestão de contas, transferências e empréstimos do ParaBank operam estritamente de acordo com as regras de negócio e especificações. Os testes visam garantir que o sistema processe transações válidas de forma atômica, bloqueie operações inválidas e retorne o feedback correto ao usuário, garantindo a integridade dos dados simulados.
+**Front-end**
+Objetivo dos Testes:
+-Garantir que o utilizador define corretamente o tipo de conta, evitando inconsistências e assegurando o cumprimento das regras de negócio.
+-Validar que a operação possui uma origem de fundos válida, assegurando a integridade do processo de abertura de conta.
+-Assegurar que o utilizador recebe feedback claro e imediato sobre o resultado da operação, melhorando a experiência e evitando dúvidas.
+-Garantir que o sistema bloqueia submissões incompletas, prevenindo erros e mantendo a consistência dos dados.
+-Facilitar a correção de erros pelo utilizador, tornando a interação mais intuitiva e eficiente.
 
-**Níveis e Tipos de Teste:**
-A abordagem será baseada em técnicas de **Caixa Preta** (como Particionamento de Equivalência e Análise de Valor Limite), abrangendo os seguintes níveis:
-* **Testes de Sistema:** Validação do comportamento da aplicação como um todo, assegurando que o front-end e a API/back-end se comunicam corretamente e cumprem os requisitos funcionais.
-* **Testes de Aceitação:** Execução de fluxos que simulam a visão e a interação do usuário final, validando se a interface atende às expectativas de usabilidade.
+Tipo de teste: 
+-Teste funcional positivo
+-Teste funcional / validação de campo obrigatório
+-Teste de usabilidade / feedback visual
+-Teste funcional / validação de regra de negócio
+-Teste funcional negativo
 
-**Ferramentas Utilizadas:**
-* **Documentação e Repositório:** GitHub (Markdown).
-* **Gerenciamento do Projeto:** [Definir com o grupo: Trello ou Jira].
-* **Execução dos Testes:** Testes manuais utilizando navegadores web (ex: Google Chrome, Edge, Opera).
+Ferramentas
+-Selenium
+-Playwright
+
 ---
 
 ## Premissas e Riscos
 
 ### Premissas
-* O ambiente de testes do ParaBank estará online, funcional e acessível durante toda a fase de planejamento e execução.
-* A equipe terá acesso contínuo às ferramentas de gerenciamento de projeto e documentação escolhidas.
-* Não haverá necessidade de manipulação direta do banco de dados, sendo os testes focados apenas nas camadas de interface e serviços da API.
+- 
 
 ### Riscos
-* **Indisponibilidade do Ambiente:** Por se tratar de um ambiente de demonstração público, o ParaBank pode sofrer instabilidades ou sair do ar, o que travaria a execução dos testes.
-* **Inconsistência de Dados:** Como outros usuários globais podem estar utilizando o sistema simultaneamente, dados de teste podem sofrer alterações inesperadas.
-* **Gargalos de Comunicação:** Desalinhamento entre os membros da equipe durante as Sprints, podendo gerar atrasos na entrega da documentação final.
+- 
 
 ## Gerenciamento do Projeto
 
 ### Metodologia
-A equipe adotará a metodologia Ágil, utilizando o framework **Scrum** para guiar o desenvolvimento do plano e a execução dos testes, garantindo entregas contínuas e alinhamento constante entre os 6 membros do squad.
+
 
 ### Organização em Sprints
-*(A divisão abaixo é apenas um modelo inicial/placeholder. A quantidade, duração e o objetivo exato de cada sprint serão definidos em conjunto por toda a equipe).*
-
-O ciclo de trabalho será dividido em **[ INSERIR QUANTIDADE ] Sprints**, estruturadas da seguinte forma:
-* **Duração de cada Sprint:** [ INSERIR DURAÇÃO, ex: 1 semana / 15 dias ]
-* **Sprint 1 - [ INSERIR NOME/FOCO ]:** [ INSERIR OBJETIVO DA SPRINT ]
-* **Sprint 2 - [ INSERIR NOME/FOCO ]:** [ INSERIR OBJETIVO DA SPRINT ]
-* **Sprint 3 - [ INSERIR NOME/FOCO ]:** [ INSERIR OBJETIVO DA SPRINT ]
+- 
 
 ### Cronograma
-* **Data de Início do Projeto:** 23/04/2026
-* **Data Prevista de Encerramento:** 04/06/2026
+- 
