@@ -126,7 +126,7 @@ A abordagem será baseada em técnicas de **Caixa Preta** (como Particionamento 
 **Ferramentas Utilizadas:**
 * **Documentação e Repositório:** GitHub (Markdown).
 * **Gerenciamento do Projeto:** [Definir com o grupo: Trello ou Jira].
-* **Execução dos Testes:** Testes manuais utilizando navegadores web (ex: Google Chrome, Edge, Opera).
+* **Execução dos Testes:** Testes manuais utilizando navegadores web no Desktop/PC (ex: Google Chrome, Edge, Opera).
 ---
 
 ## Premissas e Riscos
