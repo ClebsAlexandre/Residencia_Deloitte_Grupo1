@@ -52,8 +52,8 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 **Front-end**
 * A interface deve exigir a definição do tipo de conta antes de permitir o avanço no fluxo.
 * O sistema deve exigir a seleção de uma conta de origem para a realização do depósito inicial.
-* Após a tentativa de abertura de conta, o sistema deve comunicar ao utilizador se a operação foi concluída com sucesso ou se ocorreu falha.
-* O utilizador não deve conseguir prosseguir caso as informações mínimas necessárias não estejam preenchidas.
+* Após a tentativa de abertura de conta, o sistema deve comunicar ao usuario se a operação foi concluída com sucesso ou se ocorreu falha.
+* O usuario não deve conseguir prosseguir caso as informações mínimas necessárias não estejam preenchidas.
 * A interface deve apresentar mensagens claras indicando quais informações obrigatórias estão em falta.
 
 **API / Back-end**
@@ -107,9 +107,9 @@ Para esta fase de validação, os testes estarão limitados estritamente às qua
 
 * **Bill Pay (Pagamento de Contas):** O fluxo de pagamento de faturas ou envio de valores para terceiros não será testado.
 * **Find Transactions (Buscar Transações):** A pesquisa detalhada de histórico de transações por data, valor ou identificador da transação não entrará nesta fase.
-* **Update Contact Info (Atualização de Cadastro):** A funcionalidade de alteração de dados pessoais do utilizador (morada, telefone, etc.) está fora do escopo.
-* **Register (Registo de Novo Utilizador):** A criação de novos perfis de acesso ao sistema do banco não será alvo de validação.
-* **Admin Page (Painel de Administração):** As configurações internas do sistema, limpeza da base de dados e controlo de parâmetros de serviços SOAP/REST não serão testados.
+* **Update Contact Info (Atualização de Cadastro):** A funcionalidade de alteração de dados pessoais do usuário (endereço, telefone, etc.) está fora do escopo.
+* **Register (Registro de Novo Usuário):** A criação de novos perfis de acesso ao sistema do banco não será alvo de validação.
+* **Admin Page (Painel de Administração):** As configurações internas do sistema, limpeza do banco de dados e controle de parâmetros de serviços SOAP/REST não serão testados.
 
 ---
 
