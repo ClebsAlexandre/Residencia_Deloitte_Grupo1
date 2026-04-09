@@ -125,7 +125,7 @@ A abordagem será baseada em técnicas de **Caixa Preta** (como Particionamento 
 
 **Ferramentas Utilizadas:**
 * **Documentação e Repositório:** GitHub (Markdown).
-* **Gerenciamento do Projeto:** [Definir com o grupo: Trello ou Jira].
+* **Gerenciamento do Projeto:** [Trello].
 * **Execução dos Testes:** Testes manuais utilizando navegadores web no Desktop/PC (ex: Google Chrome, Edge, Opera).
 ---
 
@@ -147,13 +147,11 @@ A abordagem será baseada em técnicas de **Caixa Preta** (como Particionamento 
 A equipe adotará a metodologia Ágil, utilizando o framework **Scrum** para guiar o desenvolvimento do plano e a execução dos testes, garantindo entregas contínuas e alinhamento constante entre os 6 membros do squad.
 
 ### Organização em Sprints
-*(A divisão abaixo é apenas um modelo inicial/placeholder. A quantidade, duração e o objetivo exato de cada sprint serão definidos em conjunto por toda a equipe).*
-
-O ciclo de trabalho será dividido em **[ INSERIR QUANTIDADE ] Sprints**, estruturadas da seguinte forma:
-* **Duração de cada Sprint:** [ INSERIR DURAÇÃO, ex: 1 semana / 15 dias ]
-* **Sprint 1 - [ INSERIR NOME/FOCO ]:** [ INSERIR OBJETIVO DA SPRINT ]
-* **Sprint 2 - [ INSERIR NOME/FOCO ]:** [ INSERIR OBJETIVO DA SPRINT ]
-* **Sprint 3 - [ INSERIR NOME/FOCO ]:** [ INSERIR OBJETIVO DA SPRINT ]
+O ciclo de trabalho será dividido em **3 Sprints**, estruturadas da seguinte forma:
+* **Duração de cada Sprint:** 2 semanas.
+* **Sprint 1 - Planejamento e Estruturação (23/04 a 06/05):** Foco na compreensão das regras de negócio, configuração das ferramentas de gestão e finalização do documento de Plano de Testes.
+* **Sprint 2 - Modelagem e Casos de Teste (07/05 a 20/05):** Criação e detalhamento dos Casos de Teste (CTs) para as quatro funcionalidades em escopo, aplicando técnicas de Caixa Preta.
+* **Sprint 3 - Execução e Reporte (21/05 a 04/06):** Execução prática dos testes no ambiente de demonstração do ParaBank, registro de evidências, reporte de bugs e montagem da apresentação final.
 
 ### Cronograma
 * **Data de Início do Projeto:** 23/04/2026
