@@ -1,14 +1,15 @@
 # Plano de Testes – ParaBank
-Integrantes da equipe
-- Clebson Alexandre
-- Nicolas Klayvert
-- Sérgio Roberto
-- Leonardo Antônio
-- Luan Guilherme
-- Moisés Maurício
 
-  ---
-  
+**Integrantes da equipe**
+* Clebson Alexandre
+* Nicolas Klayvert
+* Sérgio Roberto
+* Leonardo Antônio
+* Luan Guilherme
+* Moisés Maurício
+
+---
+
 ## Nome do Sistema
 ParaBank
 
@@ -26,6 +27,7 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 2. **Open New Account (Abrir Conta):** Fluxo de criação de novas contas bancárias para utilizadores autenticados, validando a definição do tipo de conta e a conta de origem para o depósito inicial.
 3. **Transfer Funds (Transferir Fundos):** Realização de transferências de valores entre contas do próprio utilizador, garantindo a atomicidade da operação.
 4. **Request Loan (Solicitar Empréstimo):** Submissão e processamento de pedidos de empréstimo associados a uma conta específica, exigindo validação de valores e conta de origem.
+5. **Find Transactions (Buscar Transações):** Pesquisa e filtragem do histórico de movimentações da conta, permitindo buscas por identificador, data específica, período ou valor financeiro.
 
 ---
 
@@ -52,8 +54,8 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 **Front-end**
 * A interface deve exigir a definição do tipo de conta antes de permitir o avanço no fluxo.
 * O sistema deve exigir a seleção de uma conta de origem para a realização do depósito inicial.
-* Após a tentativa de abertura de conta, o sistema deve comunicar ao usuario se a operação foi concluída com sucesso ou se ocorreu falha.
-* O usuario não deve conseguir prosseguir caso as informações mínimas necessárias não estejam preenchidas.
+* Após a tentativa de abertura de conta, o sistema deve comunicar ao usuário se a operação foi concluída com sucesso ou se ocorreu falha.
+* O usuário não deve conseguir prosseguir caso as informações mínimas necessárias não estejam preenchidas.
 * A interface deve apresentar mensagens claras indicando quais informações obrigatórias estão em falta.
 
 **API / Back-end**
@@ -101,12 +103,26 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 
 ---
 
+### Find Transactions (Buscar Transações)
+
+**Front-end**
+* A interface deve permitir a busca de transações utilizando diferentes filtros (ID, Data, Período e Valor).
+* O sistema deve exibir mensagens amigáveis de validação caso o usuário insira formatos de data inválidos ou datas ilógicas (ex: data inicial maior que a final).
+* Caso a busca não retorne resultados, o sistema deve apresentar uma mensagem clara de ausência de transações (Empty State) em vez de apenas uma tabela vazia.
+
+**API / Back-end**
+* A API deve processar as buscas garantindo que o usuário só tenha acesso ao histórico das suas próprias contas.
+* O back-end não deve quebrar ou retornar erro de servidor (Erro 500) ao receber parâmetros de busca inválidos ou valores inexistentes, tratando a requisição de forma segura.
+
+---
+
 ## Funcionalidades Fora de Escopo
 
-Para esta fase de validação, os testes estarão limitados estritamente às quatro funcionalidades descritas acima. Sendo assim, não farão parte do escopo de testes as seguintes funcionalidades do sistema ParaBank:
+Para esta fase de validação, os testes estarão limitados estritamente às cinco funcionalidades descritas acima. Sendo assim, não farão parte do escopo de testes as seguintes áreas do sistema:
 
+* **Login:** O fluxo de autenticação, validação de credenciais e encerramento de sessão (logout) não será testado.
+* **Customer Care:** O envio de formulários e mensagens de contato para o atendimento ao cliente não será alvo de validação.
 * **Bill Pay (Pagamento de Contas):** O fluxo de pagamento de faturas ou envio de valores para terceiros não será testado.
-* **Find Transactions (Buscar Transações):** A pesquisa detalhada de histórico de transações por data, valor ou identificador da transação não entrará nesta fase.
 * **Update Contact Info (Atualização de Cadastro):** A funcionalidade de alteração de dados pessoais do usuário (endereço, telefone, etc.) está fora do escopo.
 * **Register (Registro de Novo Usuário):** A criação de novos perfis de acesso ao sistema do banco não será alvo de validação.
 * **Admin Page (Painel de Administração):** As configurações internas do sistema, limpeza do banco de dados e controle de parâmetros de serviços SOAP/REST não serão testados.
@@ -116,42 +132,50 @@ Para esta fase de validação, os testes estarão limitados estritamente às qua
 ## Estratégia de Testes
 
 **Objetivo dos Testes:**
-O objetivo principal é validar se as funcionalidades de gestão de contas, transferências e empréstimos do ParaBank operam estritamente de acordo com as regras de negócio e especificações. Os testes visam garantir que o sistema processe transações válidas de forma atômica, bloqueie operações inválidas e retorne o feedback correto ao usuário, garantindo a integridade dos dados simulados.
+O objetivo principal é validar se as funcionalidades de gestão de contas, transferências, buscas e empréstimos do ParaBank operam estritamente de acordo com as regras de negócio e especificações. Os testes visam garantir que o sistema processe transações válidas de forma atômica, bloqueie operações inválidas e retorne o feedback correto ao usuário, garantindo a integridade dos dados simulados em ambas as camadas (Interface e API).
 
-**Níveis e Tipos de Teste:**
-A abordagem será baseada em técnicas de **Caixa Preta** (como Particionamento de Equivalência e Análise de Valor Limite), abrangendo os seguintes níveis:
-* **Testes de Sistema:** Validação do comportamento da aplicação como um todo, assegurando que o front-end e a API/back-end se comunicam corretamente e cumprem os requisitos funcionais.
-* **Testes de Aceitação:** Execução de fluxos que simulam a visão e a interação do usuário final, validando se a interface atende às expectativas de usabilidade.
+**Técnica de Teste:**
+A abordagem técnica será baseada na modelagem de **Caixa Preta**, com aplicação direta das técnicas de Particionamento de Equivalência e Análise de Valor Limite para definição da massa de dados.
+
+**Tipos de Teste:**
+* **Funcionais:** Validação direta das regras de negócio, fluxos e validações obrigatórias estipuladas nos critérios de aceite.
+* **Exploratórios:** Investigação simultânea para encontrar vulnerabilidades lógicas e falhas não mapeadas nos requisitos iniciais.
+* **Teste end to end:** Validação de fluxos completos, garantindo o funcionamento do ecossistema e a comunicação íntegra entre o Front-end e o Back-end.
 
 **Ferramentas Utilizadas:**
-* **Documentação e Repositório:** GitHub (Markdown).
-* **Gerenciamento do Projeto:** [Trello].
-* **Execução dos Testes:** Testes manuais utilizando navegadores web no Desktop/PC (ex: Google Chrome, Edge, Opera).
+* **Documentação Central:** GitHub (Markdown).
+* **Gerenciamento do Projeto:** Trello.
+* **Gestão de Casos de Teste:** TestRail.
+* **Testes e Automação de API:** Insomnia.
+* **Execução de Testes de Interface:** Testes manuais utilizando navegadores web no Desktop/PC (Google Chrome, Edge).
+
 ---
 
 ## Premissas e Riscos
 
 ### Premissas
 * O ambiente de testes do ParaBank estará online, funcional e acessível durante toda a fase de planejamento e execução.
-* A equipe terá acesso contínuo às ferramentas de gerenciamento de projeto e documentação escolhidas.
-* Não haverá necessidade de manipulação direta do banco de dados, sendo os testes focados apenas nas camadas de interface e serviços da API.
+* A equipe terá acesso contínuo às ferramentas de gerenciamento de projeto, repositório e suítes de teste.
+* Não haverá necessidade de manipulação direta do banco de dados, sendo os testes focados nas camadas de interface de usuário e serviços de API (REST/JSON).
 
 ### Riscos
 * **Indisponibilidade do Ambiente:** Por se tratar de um ambiente de demonstração público, o ParaBank pode sofrer instabilidades ou sair do ar, o que travaria a execução dos testes.
-* **Inconsistência de Dados:** Como outros usuários globais podem estar utilizando o sistema simultaneamente, dados de teste podem sofrer alterações inesperadas.
-* **Gargalos de Comunicação:** Desalinhamento entre os membros da equipe durante as Sprints, podendo gerar atrasos na entrega da documentação final.
+* **Volatilidade de Dados:** Como outros usuários podem estar utilizando o sistema simultaneamente (ou devido a limpezas automáticas de banco de dados pela Admin Page), dados e contas de teste podem sofrer alterações ou exclusões inesperadas.
+* **Gargalos de Comunicação:** Desalinhamento entre os membros da equipe durante as Sprints, podendo gerar atrasos na entrega da documentação e evidências finais.
+
+---
 
 ## Gerenciamento do Projeto
 
 ### Metodologia
-A equipe adotará a metodologia Ágil, utilizando o framework **Scrum** para guiar o desenvolvimento do plano e a execução dos testes, garantindo entregas contínuas e alinhamento constante entre os 6 membros do squad.
+A equipe adotará a metodologia Ágil, utilizando o framework **Scrum** para guiar o desenvolvimento do plano e a execução dos testes, garantindo entregas contínuas e alinhamento constante entre os membros do squad.
 
 ### Organização em Sprints
 O ciclo de trabalho será dividido em **3 Sprints**, estruturadas da seguinte forma:
 * **Duração de cada Sprint:** 2 semanas.
-* **Sprint 1 - Planejamento e Estruturação (23/04 a 06/05):** Foco na compreensão das regras de negócio, configuração das ferramentas de gestão e finalização do documento de Plano de Testes.
-* **Sprint 2 - Modelagem e Casos de Teste (07/05 a 20/05):** Criação e detalhamento dos Casos de Teste (CTs) para as quatro funcionalidades em escopo, aplicando técnicas de Caixa Preta.
-* **Sprint 3 - Execução e Reporte (21/05 a 04/06):** Execução prática dos testes no ambiente de demonstração do ParaBank, registro de evidências, reporte de bugs e montagem da apresentação final.
+* **Sprint 1 - Planejamento e Estruturação (23/04 a 06/05):** Foco na compreensão das regras de negócio, definição do escopo, configuração das ferramentas de gestão (Trello/GitHub) e finalização do documento de Plano de Testes.
+* **Sprint 2 - Modelagem e Casos de Teste (07/05 a 20/05):** Criação e detalhamento dos Casos de Teste (CTs) no TestRail para as funcionalidades em escopo (Interface e API), aplicando técnicas de Caixa Preta.
+* **Sprint 3 - Execução, Automação e Reporte (21/05 a 04/06):** Execução prática dos testes manuais no ambiente de demonstração Front-end. Modelagem e **automação de cenários de API utilizando scripts de asserção no Insomnia**. Registro de evidências, reporte de bugs críticos e montagem da apresentação final do projeto.
 
 ### Cronograma
 * **Data de Início do Projeto:** 23/04/2026
