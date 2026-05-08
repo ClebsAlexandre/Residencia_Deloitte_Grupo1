@@ -174,7 +174,7 @@ A equipe adotará a metodologia Ágil, utilizando o framework **Scrum** para gui
 O ciclo de trabalho será dividido em **3 Sprints**, estruturadas da seguinte forma:
 * **Duração de cada Sprint:** 2 semanas.
 * **Sprint 1 - Planejamento e Estruturação (23/04 a 06/05):** Foco na compreensão das regras de negócio, definição do escopo, configuração das ferramentas de gestão (Trello/GitHub) e finalização do documento de Plano de Testes.
-* **Sprint 2 - Modelagem e Casos de Teste (07/05 a 20/05):** Criação e detalhamento dos Casos de Teste (CTs) no TestRail para as funcionalidades em escopo (Interface e API), aplicando técnicas de Caixa Preta.
+* **Sprint 2 - Modelagem e Casos de Teste (07/05 a 20/05):** Criação e detalhamento dos Casos de Teste no TestRail para as funcionalidades em escopo (Interface e API), aplicando técnicas de Caixa Preta.
 * **Sprint 3 - Execução, Automação e Reporte (21/05 a 04/06):** Execução prática dos testes manuais no ambiente de demonstração Front-end. Modelagem e **automação de cenários de API utilizando scripts de asserção no Insomnia**. Registro de evidências, reporte de bugs críticos e montagem da apresentação final do projeto.
 
 ### Cronograma
