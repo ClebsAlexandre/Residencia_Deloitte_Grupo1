@@ -120,7 +120,7 @@ As funcionalidades do sistema ParaBank selecionadas para esta fase de validaçã
 
 Para esta fase de validação, os testes estarão limitados estritamente às cinco funcionalidades descritas acima. Sendo assim, não farão parte do escopo de testes as seguintes áreas do sistema:
 
-* **Login:** O fluxo de autenticação, validação de credenciais e encerramento de sessão (logout) não será testado.
+* **Login:** O fluxo de autenticação, validação de credenciais e encerramento de sessão (logout) não será testado individualmente (apenas como pré-condição).
 * **Customer Care:** O envio de formulários e mensagens de contato para o atendimento ao cliente não será alvo de validação.
 * **Bill Pay (Pagamento de Contas):** O fluxo de pagamento de faturas ou envio de valores para terceiros não será testado.
 * **Update Contact Info (Atualização de Cadastro):** A funcionalidade de alteração de dados pessoais do usuário (endereço, telefone, etc.) está fora do escopo.
@@ -140,14 +140,15 @@ A abordagem técnica será baseada na modelagem de **Caixa Preta**, com aplicaç
 **Tipos de Teste:**
 * **Funcionais:** Validação direta das regras de negócio, fluxos e validações obrigatórias estipuladas nos critérios de aceite.
 * **Exploratórios:** Investigação simultânea para encontrar vulnerabilidades lógicas e falhas não mapeadas nos requisitos iniciais.
-* **Teste end to end:** Validação de fluxos completos, garantindo o funcionamento do ecossistema e a comunicação íntegra entre o Front-end e o Back-end.
+* **Teste End-to-End (E2E):** Validação de fluxos completos, garantindo o funcionamento do ecossistema e a comunicação íntegra entre o Front-end e o Back-end, apoiado por automação.
 
 **Ferramentas Utilizadas:**
 * **Documentação Central:** GitHub (Markdown).
 * **Gerenciamento do Projeto:** Trello.
 * **Gestão de Casos de Teste:** TestRail.
 * **Testes e Automação de API:** Insomnia.
-* **Execução de Testes de Interface:** Testes manuais utilizando navegadores web no Desktop/PC (Google Chrome, Edge).
+* **Automação de Interface (E2E):** Playwright.
+* **Execução de Testes Manuais:** Navegadores web no Desktop/PC (Google Chrome, Edge).
 
 ---
 
@@ -175,7 +176,7 @@ O ciclo de trabalho será dividido em **3 Sprints**, estruturadas da seguinte fo
 * **Duração de cada Sprint:** 2 semanas.
 * **Sprint 1 - Planejamento e Estruturação (23/04 a 06/05):** Foco na compreensão das regras de negócio, definição do escopo, configuração das ferramentas de gestão (Trello/GitHub) e finalização do documento de Plano de Testes.
 * **Sprint 2 - Modelagem e Casos de Teste (07/05 a 20/05):** Criação e detalhamento dos Casos de Teste no TestRail para as funcionalidades em escopo (Interface e API), aplicando técnicas de Caixa Preta.
-* **Sprint 3 - Execução, Automação e Reporte (21/05 a 04/06):** Execução prática dos testes manuais no ambiente de demonstração Front-end. Modelagem e **automação de cenários de API utilizando scripts de asserção no Insomnia**. Registro de evidências, reporte de bugs críticos e montagem da apresentação final do projeto.
+* **Sprint 3 - Execução, Automação e Reporte (21/05 a 04/06):** Execução prática dos testes manuais no ambiente de demonstração Front-end. Modelagem e automação de cenários de API utilizando scripts de asserção no **Insomnia**. Implementação de Prova de Conceito (PoC) para automação de Interface E2E utilizando **Playwright**. Registro de evidências, reporte de bugs críticos e montagem da apresentação final do projeto.
 
 ### Cronograma
 * **Data de Início do Projeto:** 23/04/2026
