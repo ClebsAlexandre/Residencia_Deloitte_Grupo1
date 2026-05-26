@@ -1,0 +1,773 @@
+type: collection.insomnia.rest/5.0
+schema_version: "5.1"
+name: ParaBank
+meta:
+  id: wrk_0df0a71cf520420682f8b1ade6cc6978
+  created: 1779801456191
+  modified: 1779801456191
+  description: ""
+collection:
+  - name: Loan (Solicitar Empréstimo)
+    meta:
+      id: fld_bbf65088fd964c31bcead5ec54285956
+      created: 1777294424122
+      modified: 1779801954984
+      sortKey: -1777294424122
+      description: ""
+    children:
+      - url: "{{ _.envParabank }}/requestLoan"
+        name: Solicitar Empréstimo
+        meta:
+          id: req_0e14f49478b44fd19cd0cebab45713e0
+          created: 1777293871991
+          modified: 1779801941764
+          isPrivate: false
+          description: ""
+          sortKey: -1777294432901
+        method: POST
+        parameters:
+          - name: customerId
+            value: "13122"
+            description: ""
+            disabled: false
+          - name: amount
+            value: "100"
+            description: ""
+            disabled: false
+          - name: downPayment
+            value: "50"
+            description: ""
+            disabled: false
+          - name: fromAccountId
+            value: "14232"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.envParabank }}/requestLoan"
+        name: Solicitar Empréstimo - Entrada Superior ao Valor
+        meta:
+          id: req_83eb1b42880f49c3ad8b49fb8fabb510
+          created: 1779728921841
+          modified: 1779738711550
+          isPrivate: false
+          description: ""
+          sortKey: -1779728942946.5
+        method: POST
+        parameters:
+          - name: customerId
+            value: "13122"
+            description: ""
+            disabled: false
+          - name: amount
+            value: "1000"
+            description: ""
+            disabled: false
+          - name: downPayment
+            value: "5000"
+            description: ""
+            disabled: false
+          - name: fromAccountId
+            value: "14232"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        scripts:
+          afterResponse: >-
+            // Converte a string do body em objeto JSON legítimo
+
+            const body = JSON.parse(insomnia.response.body);
+
+
+            // Teste 1: Validação do Status Code esperado (API deveria retornar
+            400)
+
+            insomnia.test("Erro: Request retorna 400 com entrada ilógica", () =>
+            {
+                insomnia.expect(insomnia.response.code).to.equal(400);
+            });
+
+
+            // Teste 2: Validação da propriedade do JSON (Regra de negócio)
+
+            insomnia.test("Erro: Empréstimo com entrada absurda não deve ser
+            aprovado", () => {
+                insomnia.expect(body.approved).to.equal(false);
+            });
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: ""
+        name: Solicitar Empréstimo - Valores Negativos
+        meta:
+          id: req_81c3cbd7090b400eb57cd7b7b1d00375
+          created: 1779728964052
+          modified: 1779728980355
+          isPrivate: false
+          description: ""
+          sortKey: -1779728964052
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Open Account (Abrir conta)
+    meta:
+      id: fld_30a4374633ad4fbdad22fd78ed6f0b08
+      created: 1777294450066
+      modified: 1779823939122
+      sortKey: -1777294848307.5
+      description: ""
+    children:
+      - url: "{{ _.envParabank }}/createAccount"
+        name: Abrir conta
+        meta:
+          id: req_e6048ffa0eaa4653b3c6f66db234d37b
+          created: 1775041007199
+          modified: 1779823937892
+          isPrivate: false
+          description: ""
+          sortKey: -1777294457845
+        method: POST
+        parameters:
+          - name: customerId
+            value: "12212"
+            description: ""
+            disabled: false
+          - name: newAccountType
+            value: "0"
+            description: ""
+            disabled: false
+          - name: fromAccountId
+            value: "13344"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.4.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        scripts:
+          afterResponse: |
+            const body = JSON.parse(insomnia.response.body);
+
+            insomnia.environment.set("accountId", body.id);
+
+            //Testes
+            insomnia.test("Verificar status code", () => {
+            	insomnia.expect(insomnia.response.code).to.equal(200);
+            });
+
+            insomnia.test("Verificar retorno de id", () =>{
+            	insomnia.expect(body).to.have.property("id");
+            })
+
+            insomnia.test("Verificar retorno do tipo de conta", () =>{
+            	insomnia.expect(body.type).to.equal("CHECKING");
+            });
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: ""
+        name: Abrir conta - Saldo Insuficiente
+        meta:
+          id: req_ee974de53c794b46814f112f511fe06c
+          created: 1779728642804
+          modified: 1779728848873
+          isPrivate: false
+          description: ""
+          sortKey: -1779728642804
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Transfer Funds (Transferir fundos)
+    meta:
+      id: fld_714fea0d5aba4fef94cc3d3621d87dcb
+      created: 1777294626740
+      modified: 1779738828644
+      sortKey: -1777294626740
+      description: ""
+    children:
+      - url: "{{ _.envParabank }}/transfer"
+        name: Transferir Fundos
+        meta:
+          id: req_a0b17f723f964f3dbcde7900cd5d2d9a
+          created: 1777294632097
+          modified: 1779738815574
+          isPrivate: false
+          description: ""
+          sortKey: -1777294635041
+        method: POST
+        parameters:
+          - name: fromAccountId
+            value: "13122"
+            description: ""
+            disabled: false
+          - name: toAccountId
+            value: "14232"
+            description: ""
+            disabled: false
+          - name: amount
+            value: "100"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        scripts:
+          afterResponse: >-
+            // Teste 1: Validação do Status Code de sucesso
+
+            insomnia.test("Caminho Certo: Request retorna 200 OK", () => {
+                insomnia.expect(insomnia.response.code).to.equal(200);
+            });
+
+
+            // Teste 2: Validação da mensagem de sucesso no texto bruto
+
+            insomnia.test("Caminho Certo: Response confirma a transferência", ()
+            => {
+                insomnia.expect(insomnia.response.body).to.include("Successfully transferred");
+            });
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.envParabank }}/transfer"
+        name: "Transferir Fundos - Valor Negativo "
+        meta:
+          id: req_aa8b05f873624a6f941ae2e8aabeaf34
+          created: 1778071497678
+          modified: 1779728826759
+          isPrivate: false
+          description: ""
+          sortKey: -1777294546443
+        method: POST
+        parameters:
+          - name: fromAccountId
+            value: "13122"
+            description: ""
+            disabled: false
+          - name: toAccountId
+            value: "13233"
+            description: ""
+            disabled: false
+          - name: amount
+            value: "50"
+            description: ""
+            disabled: false
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.envParabank }}/transfer"
+        name: "Transferir Fundos - Saldo Insuficiente "
+        meta:
+          id: req_f8a85325b7e144519baeddcca92b3c27
+          created: 1779728819598
+          modified: 1779738744161
+          isPrivate: false
+          description: ""
+          sortKey: -1779728819598
+        method: POST
+        body:
+          mimeType: multipart/form-data
+        parameters:
+          - name: fromAccountId
+            value: "13122"
+            description: ""
+            disabled: false
+          - name: toAccountId
+            value: "14232"
+            description: ""
+            disabled: false
+          - name: amount
+            value: "999999999999"
+            description: ""
+            disabled: false
+        headers:
+          - name: Content-Type
+            value: multipart/form-data
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        scripts:
+          afterResponse: >-
+            // Teste 1: Validação do Status Code esperado (API deveria retornar
+            400)
+
+            insomnia.test("Erro: Request retorna 400 ao transferir com saldo
+            insuficiente", () => {
+                insomnia.expect(insomnia.response.code).to.equal(400);
+            });
+
+
+            // Teste 2: Validação de segurança (Não deve comemorar sucesso)
+
+            insomnia.test("Erro: Response NÃO deve ser uma simples string de
+            sucesso", () => {
+                insomnia.expect(insomnia.response.body).to.not.be.a("string");
+            });
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: ""
+        name: Transferir Fundos - Mesma Conta Origem e Destino
+        meta:
+          id: req_2b023167b320489ea75682c609244e55
+          created: 1779728873171
+          modified: 1779728884048
+          isPrivate: false
+          description: ""
+          sortKey: -1779728873171
+        method: POST
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Accounts Overview (Visão Geral da Conta)
+    meta:
+      id: fld_de40349aed3a4da1a4871a9b01308f2d
+      created: 1777295069875
+      modified: 1779403200523
+      sortKey: -1777295069875
+      description: ""
+    children:
+      - url: "{{ _.envParabank }}/accounts/{{ _.accountId }}"
+        name: Visualizar uma conta
+        meta:
+          id: req_42460137c7624fe0a63b0a46733ca090
+          created: 1775040135746
+          modified: 1777489914669
+          isPrivate: false
+          description: ""
+          sortKey: -1777297819262
+        method: GET
+        body:
+          mimeType: application/json
+          text: ""
+        headers:
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.envParabank }}/customers/{{ _.customerId }}/accounts"
+        name: Listar contas de um usuário
+        meta:
+          id: req_614664946c3341adb09e0661735bd93c
+          created: 1777295142272
+          modified: 1778074655426
+          isPrivate: false
+          description: ""
+          sortKey: -1777297819212
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.envParabank }}/accounts/{{ _.accountId }}/transactions"
+        name: Listar transações de uma conta
+        meta:
+          id: req_ec32634728524428bd8d7ff7833b1ba4
+          created: 1777295925540
+          modified: 1777489622629
+          isPrivate: false
+          description: ""
+          sortKey: -1777297819187
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: ""
+        name: Visualizar conta - Acesso Indevido
+        meta:
+          id: req_437ad2558aa04f85a46ed61761c2617d
+          created: 1779728581427
+          modified: 1779728855840
+          isPrivate: false
+          description: ""
+          sortKey: -1779728581427
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Setup Dados
+    meta:
+      id: fld_05735f2bc08a4980bf68bd87bdf9fca4
+      created: 1778072180752
+      modified: 1779403288681
+      sortKey: -1778072180752
+      description: ""
+    children:
+      - url: "{{envParabank}}/login/john/demo"
+        name: New Request
+        meta:
+          id: req_ebe644e71d444d908d3f50542ed5152b
+          created: 1778074486786
+          modified: 1779823740365
+          isPrivate: false
+          description: ""
+          sortKey: -1778074486786
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: Find Transactions
+    meta:
+      id: fld_675119ab2a334c90aa406628e3b7ea95
+      created: 1779403228442
+      modified: 1779816236409
+      sortKey: -1779403228442
+      description: ""
+    children:
+      - url: "{{ _.envParabank }}/accounts/{{ _.accountId }}/transactions/fromDate/{{
+          _.fromDate }}/toDate/{{ _.toDate }}"
+        name: Buscar transações por intervalo de datas
+        meta:
+          id: req_164e60517b0a4b5d85496e94601391b9
+          created: 1777297225191
+          modified: 1779729094536
+          isPrivate: false
+          description: ""
+          sortKey: -1779729083123
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.envParabank }}/accounts/{{ _.accountId }}/transactions/onDate/{{
+          _.onDate }}"
+        name: Buscar transação em data específica
+        meta:
+          id: req_38a9e57715634ba692231dac5d7fe972
+          created: 1777297819162
+          modified: 1779729091846
+          isPrivate: false
+          description: ""
+          sortKey: -1779729083023
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.5.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: ""
+        name: Buscar transação por ID
+        meta:
+          id: req_4fd1cb55eb42494ab05679e9f1f587ea
+          created: 1779729011890
+          modified: 1779729018629
+          isPrivate: false
+          description: ""
+          sortKey: -1779729011890
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.envParabank }}/accounts/{{ _.accountId }}/transactions/amount/100"
+        name: Buscar transações por Valor
+        meta:
+          id: req_7460a45c7f584558a61dbe613be74772
+          created: 1779729043037
+          modified: 1779737817438
+          isPrivate: false
+          description: ""
+          sortKey: -1779729043037
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        scripts:
+          preRequest: "\t"
+          afterResponse: >-
+            // Converte a string do body em objeto JSON
+
+            const body = JSON.parse(insomnia.response.body);
+
+
+            // Teste 1: Valida se a API respondeu com sucesso
+
+            insomnia.test("Caminho Feliz: Request retorna 200 OK", () => {
+                insomnia.expect(insomnia.response.code).to.equal(200);
+            });
+
+
+            // Teste 2: Valida se a lista de transações não está vazia
+
+            insomnia.test("Caminho Feliz: Response traz pelo menos uma
+            transação", () => {
+                insomnia.expect(body).to.be.an("array");
+                insomnia.expect(body.length).to.be.greaterThan(0); // Garante que achou algo (> 0)
+            });
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.envParabank }}/accounts/{{ _.accountId
+          }}/transactions/amount/100000000"
+        name: Buscar transações - Sem Resultados
+        meta:
+          id: req_dd52a2e218db45538b92fda44cd95652
+          created: 1779729082923
+          modified: 1779737912747
+          isPrivate: false
+          description: ""
+          sortKey: -1779729082923
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/12.6.0
+            description: ""
+            disabled: false
+          - name: Accept
+            value: application/json
+            description: ""
+            disabled: false
+        scripts:
+          afterResponse: >-
+            // Converte a string do body em objeto JSON
+
+            const body = JSON.parse(insomnia.response.body);
+
+
+            // Teste 1: A busca funcionou, então deve retornar 200 OK
+
+            insomnia.test("Request retorna 200 para busca sem resultados", () =>
+            {
+                insomnia.expect(insomnia.response.code).to.equal(200);
+            });
+
+
+            // Teste 2: Valida se o sistema devolve uma lista vazia corretamente
+
+            insomnia.test("Response deve ser um array vazio", () => {
+                insomnia.expect(body).to.be.an("array");
+                insomnia.expect(body.length).to.equal(0);
+            });
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_a8d3c2713f9644acb8534f5204dc41ac
+    created: 1775039757693
+    modified: 1779823939116
+  cookies:
+    - id: 96497239-95ea-4bbe-8336-a0c8ebaf483f
+      key: JSESSIONID
+      value: 69AA4CC20CCB54BE50844BA66EB8B399
+      domain: parabank.parasoft.com
+      path: /parabank
+      secure: false
+      httpOnly: true
+      hostOnly: true
+environments:
+  name: Base Environment
+  meta:
+    id: env_921a6cebc689476e843ff24ef9ceb54b
+    created: 1775039757689
+    modified: 1779823939119
+    isPrivate: false
+  data:
+    envParabank: https://parabank.parasoft.com/parabank/services/bank
+    customerId: "12212"
+    month: January
+    typeTransaction: Debit
+    fromDate: 2026-04-27
+    toDate: 2026-04-27
+    onDate: 2026-04-27
+    accountId: 20448
+    id: ""
