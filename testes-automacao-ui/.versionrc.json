@@ -1,0 +1,12 @@
+{
+  "types": [
+    {"type": "feat", "section": "✨ Funcionalidades (Features)", "hidden": false},
+    {"type": "fix", "section": "🐛 Correções de Bugs (Bug Fixes)", "hidden": false},
+    {"type": "refactor", "section": "♻️ Refatoração de Código", "hidden": false},
+    {"type": "perf", "section": "⚡️ Melhorias de Performance", "hidden": false},
+    {"type": "docs", "section": "📝 Documentação", "hidden": false},
+    {"type": "style", "section": "💄 Estilos e Formatação", "hidden": true},
+    {"type": "test", "section": "✅ Testes", "hidden": true},
+    {"type": "chore", "section": "🔧 Configurações e Manutenção", "hidden": true}
+  ]
+}
