@@ -3,10 +3,11 @@
 Bem-vindo ao repositório oficial do nosso squad para o projeto prático da **Residência Tecnológica em Quality Assurance**, promovida pela Deloitte em parceria com o Porto Digital.
 
 ## 👥 Equipe e Responsabilidades
-A divisão de tarefas para a execução técnica das validações ocorreu da seguinte forma:
+A divisão de tarefas do squad para a entrega deste projeto ocorreu da seguinte forma:
 
-- **Automação de Interface (E2E com Playwright):** Nicolas e Leonardo
+- **Testes Manuais e Documento de Evidências:** Nicolas, Leonardo, Clebson, Moisés e Sérgio
 - **Testes de API (Insomnia):** Clebson e Luan
+- **Automação de Interface (E2E com Playwright):** Nicolas e Leonardo
 
 ## Status Atual do Projeto
 **Fase de Entrega e Conclusão:** O projeto encontra-se com todas as frentes de teste implementadas e consolidadas.
