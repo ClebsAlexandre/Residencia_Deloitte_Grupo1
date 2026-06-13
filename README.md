@@ -24,5 +24,6 @@ O nosso escopo abrangeu o mapeamento e modelagem do **Plano de Testes**, a execu
 > Portanto, quando rodarem a automação e observarem testes falhando (status **Failed** em vermelho no relatório do Playwright), **não se trata de um erro de código**. Nós configuramos os testes para **lançarem uma exceção intencionalmente (throw Error)** toda vez que detectam que o Parabank permitiu uma ação indevida. Isso garante que as falhas de regras de negócio não sejam mascaradas como sucesso, refletindo o real estado da aplicação no relatório HTML.
 
 
+
 ---
 *Repositório mantido colaborativamente pelo nosso squad durante o ciclo da residência.*
